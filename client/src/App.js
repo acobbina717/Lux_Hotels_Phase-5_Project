@@ -2,13 +2,22 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const getCurrentUser = () => {
+    fetch("/current_user").then((res) => {
+      if (res.ok) {
+        res.json().then((user) => {
+          setCurrentUser(user);
+        });
+      }
+    });
+  };
 
   useEffect(() => {
-    fetch("/current_user")
-      .then((r) => r.json())
-      .then((data) => console.log(data));
+    getCurrentUser();
   }, []);
+  console.log(currentUser);
 
   return (
     <div className="App">
