@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
-import UserEntryModal from "./UserEntryModal";
-import NavBar from "./NavBar";
 import HotelsList from "./HotelsList";
-
-const Main = ({ currentUser }) => {
+// import ImageGalleryCarousel from "./ImageGalleryCarousel";
+import "./MainPage.css";
+const Main = ({ hotels, destination, setDestination, setDateRange }) => {
   return (
     <div>
-      {currentUser ? <NavBar /> : <UserEntryModal />}
-      <SearchBar />
-      <HotelsList />
+      <SearchBar
+        destination={destination}
+        setDestination={setDestination}
+        setDateRange={setDateRange}
+      />
+      <div className="hotel-list-container">
+        <HotelsList hotels={hotels} destination={destination} />
+      </div>
     </div>
   );
 };

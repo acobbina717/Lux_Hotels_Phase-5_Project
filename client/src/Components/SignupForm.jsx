@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import { TextInput, PasswordInput, Group, Button } from "@mantine/core";
-
-const SignupForm = () => {
+import PasswordPopOver from "./PasswordPopOver";
+const SignUpForm = ({ setUser, getCurrentUser }) => {
+  const [errors, setErrors] = useState({});
   const form = useForm({
     initialValues: {
       username: "",
@@ -19,14 +20,17 @@ const SignupForm = () => {
     }).then((res) => {
       if (res.ok) {
         res.json().then((data) => {
-          console.log("signed up", data);
+          console.log(data);
+          getCurrentUser();
         });
       } else {
-        res.json().then((errors) => {
-          console.log(errors);
+        res.json().then((data) => {
+          setErrors(data.errors);
         });
       }
     });
+
+    form.reset();
   });
 
   return (
@@ -42,10 +46,17 @@ const SignupForm = () => {
           label="Email"
           {...form.getInputProps("email")}
         />
-        <PasswordInput
-          name="password"
-          label="Password"
-          {...form.getInputProps("password")}
+        <PasswordPopOver
+          formPassword={form.values.password}
+          target={
+            <PasswordInput
+              placeholder="Password"
+              label="Password"
+              required
+              {...form.getInputProps("password")}
+              description="Strong password should include letters in lower and uppercase, at least 1 number, at least 1 special symbol"
+            />
+          }
         />
         <Group>
           <Button type="submit">Sign Up</Button>
@@ -55,4 +66,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default SignUpForm;

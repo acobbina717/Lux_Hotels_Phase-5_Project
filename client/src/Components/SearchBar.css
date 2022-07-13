@@ -1,0 +1,20 @@
+.search-bar {
+  background-color: white;
+  border: 3px solid #febb02;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px 0px;
+  border-radius: 6px;
+  margin-bottom: 70px;
+  margin-top: 50px;
+  /* bottom: -25px; */
+  /* width: 100%; */
+  /* max-width: 1024px; */
+}
+
+.search-bar-item {
+  display: flex;
+  /* align-items: center; */
+  gap: 10px;
+  /* justify-content: space-evenly; */
+}

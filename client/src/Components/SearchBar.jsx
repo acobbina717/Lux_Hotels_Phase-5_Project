@@ -1,74 +1,81 @@
 import React, { useState } from "react";
+import { Button, Container, Input, Popover } from "@mantine/core";
+import { IconBed, IconCalendar, IconUsers } from "@tabler/icons";
+import IncrementDecrementControl from "./IncrementDecrementControl";
+import "./SearchBar.css";
 import { DateRangePicker } from "@mantine/dates";
-import { TextInput, Input, Group, Button } from "@mantine/core";
-import IncrementDecrementController from "./IncrementDecrementController";
-import { IconBed, IconCalendar } from "@tabler/icons";
-const SearchBar = () => {
-  const [destination, setDestination] = useState("");
-  console.log("destination", destination);
-  const [dateRange, setDateRange] = useState([]);
-  console.log("dateRange", dateRange);
-  const [travelerAndRoomCount, setTravelerAndRoomCount] = useState({
-    adult: 1,
+const SearchBar = ({
+  setDestination,
+  setDateRange,
+  dateRange,
+  destination,
+}) => {
+  const [openedPopover, setOpenedPopover] = useState(false);
+
+  const [travelerCount, settravelerCount] = useState({
+    adults: 2,
     children: 0,
-    room: 1,
   });
-  console.log("travelers", travelers);
-  const totalTravelers = travelers.adult + travelers.child;
-  console.log("totalTravelers", totalTravelers);
-  const isSingleAdultTraveler = travelers.adult === 1 ? "adult" : "adults";
-  console.log("isSingleAdultTraveler", travelers.adult, isSingleAdultTraveler);
-  const isSingleChildTraveler = travelers.child === 1 ? "child" : "children";
-  console.log("isSingleChildTraveler", travelers.child, isSingleChildTraveler);
-  const isSingleRoom = travelers.room === 1 ? "room" : "rooms";
-  console.log("isSingleRoom", travelers.room, isSingleRoom);
+
+  const totalTravelers = travelerCount.adults + travelerCount.children;
+  const isSingleTraveler = {
+    singleAdult: travelerCount.adults === 1 ? "Adult" : "Adults",
+    singleChild: travelerCount.children === 1 ? "Child" : "Children",
+  };
+
   return (
-    <div className="header">
-      <div
-        className={
-          type === "list" ? "headerContainer listMode" : "headerContainer"
-        }
+    <Container className="search-bar">
+      <Input
+        className="search-input"
+        placeholder="Where are you going"
+        icon={<IconBed />}
+        width="500px"
+        value={destination}
+        onChange={(e) => setDestination(e.target.value)}
+      />
+
+      <DateRangePicker
+        icon={<IconCalendar />}
+        placeholder="Check-in - Check-out"
+        // value={dateRange}
+        onChange={(value) => setDateRange(value)}
+        minDate={new Date()}
+      />
+
+      <Input
+        onClick={() => setOpenedPopover((o) => !o)}
+        readOnly
+        placeholder={`${travelerCount.adults} ${isSingleTraveler.singleAdult}  • ${travelerCount.children}  ${isSingleTraveler.singleChild}`}
+        // value=
+        icon={<IconUsers />}
+      />
+      <Popover
+        opened={openedPopover}
+        onClose={() => setOpenedPopover(false)}
+        position="bottom"
+        placement="end"
+        withCloseButton
+        transition="pop-top-left"
       >
-        <div className="headerSearch">
-          <div className="headerSearchItem">
-            <TextInput
-              icon={<IconBed />}
-              placeholder="Where are you going?"
-              value={destination}
-              onChange={(destination) => setDestination(destination)}
-            />
-          </div>
-          <div className="headerSearchItem">
-            <DateRangePicker
-              icon={<IconCalendar />}
-              label="Booking Dates"
-              placeholder="Chekck In - Check Out"
-              value={dateRange}
-              onChange={(dateRange) => setDateRange(dateRange)}
-            />
-          </div>
-          <div className="headerSearchItem">
-            <Input icon={<IconUser />}>
-              <IncrementDecrementController
-                isSingleTraveler={isSingleAdultTraveler}
-                travelerCount={travelerAndRoomCount.adult}
-                setTravelerCount={setTravelerAndRoomCount}
-              />
-              <IncrementDecrementController
-                isSingleTraveler={isSingleChildTraveler}
-                travelerCount={travelerAndRoomCount.child}
-                setTravelerCount={setTravelerAndRoomCount}
-              />
-            </Input>
-          </div>
-          <div className="headerSearchItem">
-            <Group>
-              <Button className="headerBtn">Search</Button>
-            </Group>
-          </div>
-        </div>
-      </div>
-    </div>
+        <IncrementDecrementControl
+          traveler="Adults"
+          count={travelerCount.adults}
+          setCount={settravelerCount}
+          totalTravelers={totalTravelers}
+          isSingleTraveler={isSingleTraveler.singleAdult}
+          min
+        />
+        <IncrementDecrementControl
+          traveler="Children"
+          count={travelerCount.children}
+          setCount={settravelerCount}
+          totalTravelers={totalTravelers}
+          isSingleTraveler={isSingleTraveler.singleChild}
+        />
+      </Popover>
+
+      {/* <Button>Search</Button> */}
+    </Container>
   );
 };
 

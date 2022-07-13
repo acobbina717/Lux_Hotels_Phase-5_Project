@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :users, only: [:index]
+  resources :review_comments
+  resources :reservations, only: [:index, :show, :create, :destroy]
+  resources :hotels
+  resources :users, only: [:index, :destroy]
+  resources :reviews, only: [:index, :create, :destroy]
   get '/current_user', to: 'users#show'
   delete '/logout', to: 'sessions#destroy'
   post '/login', to: 'sessions#create'
