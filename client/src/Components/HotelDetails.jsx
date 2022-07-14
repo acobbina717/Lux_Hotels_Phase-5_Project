@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import NavBar from "./NavBar";
+import React, { useState } from "react";
 import {
   Container,
   Title,
@@ -12,8 +11,6 @@ import {
   Box,
   Center,
   List,
-  ListItem,
-  Text,
   ThemeIcon,
 } from "@mantine/core";
 import ReviewCard from "./ReviewCard";
@@ -37,6 +34,7 @@ const HotelDetails = ({
   getCurrentHotel,
   getCurrentUser,
   dateRange,
+  formatDate,
 }) => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
@@ -115,14 +113,6 @@ const HotelDetails = ({
   // console.log("Detail PAge", dateRange);
   const [checkIn, checkOut] = dateRange;
 
-  const formatDate = (date) => {
-    if (date) {
-      const month = date.getMonth();
-      const day = date.getDate();
-      const year = date.getFullYear();
-      return `${month}/${day}/${year}`;
-    }
-  };
   console.log("Detail PAge", formatDate(checkIn));
 
   const confimReservation = () => {

@@ -3,7 +3,15 @@ import { Rating } from "@mui/material";
 import "./HotelCard.css";
 import { Link } from "react-router-dom";
 
-const HotelCard = ({ id, name, rate, image, starRating, neighbourhood }) => {
+const HotelCard = ({
+  id,
+  name,
+  rate,
+  image,
+  starRating,
+  neighbourhood,
+  currentUser,
+}) => {
   return (
     <div className="hotel-card-container">
       <div className="searchItem">
@@ -14,7 +22,7 @@ const HotelCard = ({ id, name, rate, image, starRating, neighbourhood }) => {
           style={{ borderRadius: "7px 0px 0px 7px", border: "2px solid black" }}
         />
         <Link
-          to={`hotels/${id}`}
+          to={currentUser ? `hotels/${id}` : "signup"}
           style={{ textDecoration: "none", color: "black" }}
         >
           <div className="siDesc">

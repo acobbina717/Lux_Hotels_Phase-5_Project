@@ -1,13 +1,11 @@
-import { Button, Tabs, Text } from "@mantine/core";
+import { Tabs, Text } from "@mantine/core";
 import React from "react";
 import ProfileSettings from "./ProfileSettings";
-import Reviews from "./ReviewCard";
-
 import { IconMessage, IconSettings, IconCalendarEvent } from "@tabler/icons";
 import ReviewCard from "./ReviewCard";
+import ReservationCard from "./ReservationCard";
 
 const UserProfile = ({ currentUser }) => {
-  console.log(currentUser);
   return (
     <>
       <Text align="center">
@@ -23,7 +21,7 @@ const UserProfile = ({ currentUser }) => {
         <Tabs.Tab icon={<IconMessage strokeWidth={1.25} />} label="My Reviews">
           {currentUser.reviews?.map((review) => (
             <ReviewCard
-              key={review._id}
+              key={review.id}
               reviews={review.review}
               username={currentUser.username}
             />
@@ -33,7 +31,16 @@ const UserProfile = ({ currentUser }) => {
         <Tabs.Tab
           icon={<IconCalendarEvent strokeWidth={1.25} />}
           label="Reservations"
-        ></Tabs.Tab>
+        >
+          {currentUser.reservations?.map((reservation) => (
+            <ReservationCard
+              key={reservation.id}
+              check_in_date={reservation.check_in_date}
+              check_out_date={reservation.check_out_date}
+              reservation={reservation}
+            />
+          ))}
+        </Tabs.Tab>
       </Tabs>
     </>
   );

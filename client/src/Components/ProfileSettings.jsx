@@ -5,27 +5,14 @@ import {
   Text,
   Group,
   useMantineTheme,
-  Modal,
   Space,
-  TextInput,
-  Input,
   PasswordInput,
 } from "@mantine/core";
-import InlineEdit from "./InlineEdit";
 import { useForm } from "@mantine/form";
-import EditProfileForm from "./EditProfileForm";
-import { IconAdjustments } from "@tabler/icons";
-import {
-  Editable,
-  EditableInput,
-  EditableTextarea,
-  EditablePreview,
-} from "@chakra-ui/react";
 import PasswordPopOver from "./PasswordPopOver";
 import "./ProfileSettings.css";
 
 const ProfileSettings = ({ currentUser }) => {
-  const [opened, setOpened] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
   const [editProfile, setEditProfile] = useState({
     username: "username",
@@ -51,9 +38,7 @@ const ProfileSettings = ({ currentUser }) => {
             position="center"
             style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
           >
-            <Avatar color="cyan" radius="xl">
-              {/* EX */}
-            </Avatar>
+            <Avatar color="cyan" radius="xl"></Avatar>
           </Group>
         </Card.Section>
         <Group
@@ -89,7 +74,6 @@ const ProfileSettings = ({ currentUser }) => {
               <PasswordInput
                 onFocus={() => setShowDescription(true)}
                 placeholder="Password"
-                // label="Password"
                 value={form.values.password}
                 {...form.getInputProps("password")}
                 description={
@@ -101,17 +85,6 @@ const ProfileSettings = ({ currentUser }) => {
             }
           />
         </form>
-        {/* <Modal
-          opened={opened}
-          onClose={() => setOpened(false)}
-          title="User Information"
-        >
-          <EditProfileForm theme={theme} />
-        </Modal>
-
-        <Group position="center">
-          <IconAdjustments onClick={() => setOpened(true)} cursor="pointer" />
-        </Group> */}
       </Card>
     </div>
   );

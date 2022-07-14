@@ -10,9 +10,8 @@ class ReservationsController < ApplicationController
   end
 
   def user_reservation
-    reservation = Reservation.find_by_user_id(params[:user_id])
+    reservation = Reservation.where(user_id: params[:user_id])
     render json: reservation, status: 200
-
   end
 
   def create 

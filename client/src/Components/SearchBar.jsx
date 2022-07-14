@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import { Button, Container, Input, Popover } from "@mantine/core";
+import { Container, Input, Popover } from "@mantine/core";
 import { IconBed, IconCalendar, IconUsers } from "@tabler/icons";
 import IncrementDecrementControl from "./IncrementDecrementControl";
 import "./SearchBar.css";
 import { DateRangePicker } from "@mantine/dates";
-const SearchBar = ({
-  setDestination,
-  setDateRange,
-  dateRange,
-  destination,
-}) => {
+const SearchBar = ({ setDestination, setDateRange, destination }) => {
   const [openedPopover, setOpenedPopover] = useState(false);
-
   const [travelerCount, settravelerCount] = useState({
     adults: 2,
     children: 0,
   });
-
   const totalTravelers = travelerCount.adults + travelerCount.children;
   const isSingleTraveler = {
     singleAdult: travelerCount.adults === 1 ? "Adult" : "Adults",
@@ -33,11 +26,9 @@ const SearchBar = ({
         value={destination}
         onChange={(e) => setDestination(e.target.value)}
       />
-
       <DateRangePicker
         icon={<IconCalendar />}
         placeholder="Check-in - Check-out"
-        // value={dateRange}
         onChange={(value) => setDateRange(value)}
         minDate={new Date()}
       />
@@ -46,7 +37,6 @@ const SearchBar = ({
         onClick={() => setOpenedPopover((o) => !o)}
         readOnly
         placeholder={`${travelerCount.adults} ${isSingleTraveler.singleAdult}  • ${travelerCount.children}  ${isSingleTraveler.singleChild}`}
-        // value=
         icon={<IconUsers />}
       />
       <Popover
@@ -73,8 +63,6 @@ const SearchBar = ({
           isSingleTraveler={isSingleTraveler.singleChild}
         />
       </Popover>
-
-      {/* <Button>Search</Button> */}
     </Container>
   );
 };

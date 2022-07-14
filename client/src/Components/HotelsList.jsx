@@ -1,7 +1,7 @@
 import React from "react";
 import HotelCard from "./HotelCard";
 
-const HotelsList = ({ hotels, destination }) => {
+const HotelsList = ({ hotels, destination, currentUser }) => {
   return (
     <div>
       {hotels
@@ -17,6 +17,7 @@ const HotelsList = ({ hotels, destination }) => {
             image={hotel.desktop_thumbnail}
             starRating={hotel.star_rating}
             neighbourhood={hotel.neighbourhood}
+            currentUser={currentUser}
           />
         ))}
     </div>

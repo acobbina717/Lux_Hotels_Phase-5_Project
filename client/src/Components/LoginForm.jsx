@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import { TextInput, PasswordInput, Group, Button } from "@mantine/core";
+import { TextInput, PasswordInput, Group, Button, Text } from "@mantine/core";
 import PasswordPopOver from "./PasswordPopOver";
 
-const LoginForm = ({ setUser, getCurrentUser }) => {
-  const [errors, setErrors] = useState({});
+const LoginForm = ({ getCurrentUser }) => {
+  const [loginerrors, setLoginErrors] = useState(null);
   //
   const form = useForm({
     initialValues: {
@@ -27,7 +27,7 @@ const LoginForm = ({ setUser, getCurrentUser }) => {
         });
       } else {
         res.json().then((data) => {
-          console.log(data.errors);
+          setLoginErrors(data.error);
         });
       }
     });
@@ -53,7 +53,8 @@ const LoginForm = ({ setUser, getCurrentUser }) => {
           }
         />
         <Group>
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit">Login</Button>
+          {loginerrors ? <Text color={"red"}>{loginerrors}</Text> : null}
         </Group>
       </form>
     </div>

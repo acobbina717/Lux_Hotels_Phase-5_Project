@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import { TextInput, PasswordInput, Group, Button } from "@mantine/core";
+import { TextInput, PasswordInput, Group, Button, Text } from "@mantine/core";
 import PasswordPopOver from "./PasswordPopOver";
-const SignUpForm = ({ setUser, getCurrentUser }) => {
-  const [errors, setErrors] = useState({});
+import { useNavigate } from "react-router-dom";
+const SignUpForm = ({ getCurrentUser }) => {
+  const navigate = useNavigate();
+  const [signUpErrors, setSignUpErrors] = useState(null);
   const form = useForm({
     initialValues: {
       username: "",
@@ -19,13 +21,13 @@ const SignUpForm = ({ setUser, getCurrentUser }) => {
       body: JSON.stringify(values),
     }).then((res) => {
       if (res.ok) {
-        res.json().then((data) => {
-          console.log(data);
+        res.json().then(() => {
           getCurrentUser();
+          navigate("/");
         });
       } else {
         res.json().then((data) => {
-          setErrors(data.errors);
+          setSignUpErrors(data.errors);
         });
       }
     });
@@ -60,6 +62,8 @@ const SignUpForm = ({ setUser, getCurrentUser }) => {
         />
         <Group>
           <Button type="submit">Sign Up</Button>
+
+          <Text color={"red"}>{signUpErrors}</Text>
         </Group>
       </form>
     </div>
