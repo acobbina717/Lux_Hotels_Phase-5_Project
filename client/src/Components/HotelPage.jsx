@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import HotelDetails from "./HotelDetails";
 import { useParams } from "react-router-dom";
 
-const HotelPage = ({ currentUser, getCurrentUser, dateRange }) => {
+const HotelPage = ({ currentUser, getCurrentUser, dateRange, formatDate }) => {
   let { id } = useParams();
   const [currentHotel, setCurrentHotel] = useState({});
 
@@ -28,6 +28,7 @@ const HotelPage = ({ currentUser, getCurrentUser, dateRange }) => {
         getCurrentHotel={getCurrentHotel}
         getCurrentUser={getCurrentUser}
         dateRange={dateRange}
+        formatDate={formatDate}
       />
     </>
   );

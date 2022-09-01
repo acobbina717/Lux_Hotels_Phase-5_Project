@@ -112,8 +112,8 @@ const HotelDetails = ({
   });
   // console.log("Detail PAge", dateRange);
   const [checkIn, checkOut] = dateRange;
-
-  console.log("Detail PAge", formatDate(checkIn));
+  // console.log(dateRange);
+  // console.log("Detail PAge", formatDate(checkIn));
 
   const confimReservation = () => {
     fetch("/reservations", {

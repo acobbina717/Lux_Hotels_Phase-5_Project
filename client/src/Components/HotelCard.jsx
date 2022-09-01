@@ -22,7 +22,7 @@ const HotelCard = ({
           style={{ borderRadius: "7px 0px 0px 7px", border: "2px solid black" }}
         />
         <Link
-          to={currentUser ? `hotels/${id}` : "signup"}
+          to={`hotels/${id}`}
           style={{ textDecoration: "none", color: "black" }}
         >
           <div className="siDesc">

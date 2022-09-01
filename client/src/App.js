@@ -14,9 +14,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [hotels, setHotels] = useState([]);
   const [destination, setDestination] = useState("");
-  const [dateRange, setDateRange] = useState(null);
+  const [dateRange, setDateRange] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
-  console.log(dateRange);
 
   const navigate = useNavigate();
 
@@ -127,7 +126,6 @@ function App() {
           path={profilePath}
           element={<UserProfile currentUser={currentUser} />}
         />
-
         <Route
           path="hotels/:id"
           element={
